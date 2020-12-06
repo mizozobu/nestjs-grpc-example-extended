@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package villan;
+
+service VillanService {
+  rpc UnaryCall (VillanById) returns (Villan); // Unary Call
+  rpc ClientStreamAsObservable (stream VillanById) returns (Villan); // Client Streaming
+  rpc ClientStreamAsStream (stream VillanById) returns (Villan); // Client Streaming
+  rpc ServerStreamAsObservable (VillanById) returns (stream Villan); // Server Streaming
+  rpc BidirectionalStreamAsObservable (stream VillanById) returns (stream Villan); // Duplex Streaming
+  rpc BidirectionalStreamAsStream (stream VillanById) returns (stream Villan); // Duplex Streaming
+}
+
+message VillanById {
+  int32 id = 1;
+}
+
+message Villan {
+  int32 id = 1;
+  string name = 2;
+}

@@ -10,35 +10,49 @@ export class HeroController implements HeroServiceController {
     { id: 2, name: 'Doe' },
   ];
 
-  findOne(data: HeroById): Hero {
-    return this.items.find(({ id }) => id === data.id);
+  unaryCall(data: HeroById): Hero {
+    console.log('HeroService.UnaryCall received %o', data);
+    const item = this.items.find(({ id }) => id === data.id);
+    console.log('HeroService.UnaryCall responsess %o', item);
+    return item;
   }
 
-  clientStreamExample(data$: Observable<HeroById>): Observable<Hero> {
+  clientStreamAsObservable(data$: Observable<HeroById>): Observable<Hero> {
     const hero$ = new Subject<Hero>();
 
     const onNext = (heroById: HeroById) => {
+      console.log('HeroService.ClientStreamAsObservable received %o', heroById);
       const item = this.items.find(({ id }) => id === heroById.id);
-      console.log('ClientStreamExample received %o', item);
       hero$.next(item);
     };
-    const onComplete = () => hero$.complete();
-    data$.subscribe(onNext, null, onComplete);
+    const onComplete = () => {
+      hero$.complete()
+      console.log('HeroService.ClientStreamAsObservable completed');
+    };
+    data$.subscribe({
+      next: onNext,
+      error: null,
+      complete: onComplete
+    });
 
     return hero$.asObservable();
   };
 
-  serverStreamExample(data: HeroById): Observable<Hero> {
+  serverStreamAsObservable(data: HeroById): Observable<Hero> {
     const subject = new Subject<Hero>();
-    console.log('ServerStreamExample received %o', data);
+    console.log('HeroService.ServerStreamAsObservable received %o', data);
 
     const onNext = (item: Hero): void => {
-      console.log('ServerStreamExample response %o', item);
+      console.log('HeroService.ServerStreamAsObservable responses %o', item);
     };
     const onComplete = (): void => {
-      console.log('ServerStreamExample completed');
+      console.log('HeroService.ServerStreamAsObservable completed');
     };
-    subject.subscribe(onNext, null, onComplete);
+    subject.subscribe({
+      next: onNext,
+      error: null,
+      complete: onComplete
+    });
 
     let i = 0;
     setInterval(() => {
@@ -55,18 +69,23 @@ export class HeroController implements HeroServiceController {
     return subject.asObservable();
   }
 
-  bidirectionalStreamExample(data$: Observable<HeroById>): Observable<Hero> {
+  bidirectionalStreamAsObservable(data$: Observable<HeroById>): Observable<Hero> {
     const hero$ = new Subject<Hero>();
   
     const onNext = (heroById: HeroById) => {
+      console.log('HeroService.BidirectionalStreamAsObservable received %o', heroById);
       const item = this.items.find(({ id }) => id === heroById.id);
-      console.log('BidirectionalStreamExample response %o', item);
+      console.log('HeroService.BidirectionalStreamAsObservable responses %o', item);
       hero$.next(item);
     };
     const onComplete = (): void => {
-      console.log('BidirectionalStreamExample completed');
+      console.log('HeroService.BidirectionalStreamAsObservable completed');
     };
-    data$.subscribe(onNext, null, onComplete);
+    data$.subscribe({
+      next: onNext,
+      error: null,
+      complete: onComplete
+    });
   
     return hero$.asObservable();
   }

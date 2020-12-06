@@ -18,22 +18,22 @@ export interface HeroServiceClient {
   /**
    *  Unary Call
    */
-  findOne(request: HeroById, metadata?: Metadata): Observable<Hero>;
+  unaryCall(request: HeroById, metadata?: Metadata): Observable<Hero>;
 
   /**
    *  Client Streaming
    */
-  clientStreamExample(request: Observable<HeroById>, metadata?: Metadata): Observable<Hero>;
+  clientStreamAsObservable(request: Observable<HeroById>, metadata?: Metadata): Observable<Hero>;
 
   /**
    *  Server Streaming
    */
-  serverStreamExample(request: HeroById, metadata?: Metadata): Observable<Hero>;
+  serverStreamAsObservable(request: HeroById, metadata?: Metadata): Observable<Hero>;
 
   /**
    *  Duplex Streaming
    */
-  bidirectionalStreamExample(request: Observable<HeroById>, metadata?: Metadata): Observable<Hero>;
+  bidirectionalStreamAsObservable(request: Observable<HeroById>, metadata?: Metadata): Observable<Hero>;
 
 }
 
@@ -42,33 +42,33 @@ export interface HeroServiceController {
   /**
    *  Unary Call
    */
-  findOne(request: HeroById, metadata?: Metadata): Promise<Hero> | Observable<Hero> | Hero;
+  unaryCall(request: HeroById, metadata?: Metadata): Promise<Hero> | Observable<Hero> | Hero;
 
   /**
    *  Client Streaming
    */
-  clientStreamExample(request: Observable<HeroById>, metadata?: Metadata): Promise<Hero> | Observable<Hero> | Hero;
+  clientStreamAsObservable(request: Observable<HeroById>, metadata?: Metadata): Promise<Hero> | Observable<Hero> | Hero;
 
   /**
    *  Server Streaming
    */
-  serverStreamExample(request: HeroById, metadata?: Metadata): Observable<Hero>;
+  serverStreamAsObservable(request: HeroById, metadata?: Metadata): Observable<Hero>;
 
   /**
    *  Duplex Streaming
    */
-  bidirectionalStreamExample(request: Observable<HeroById>, metadata?: Metadata): Observable<Hero>;
+  bidirectionalStreamAsObservable(request: Observable<HeroById>, metadata?: Metadata): Observable<Hero>;
 
 }
 
 export function HeroServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ['findOne', 'serverStreamExample'];
+    const grpcMethods: string[] = ['unaryCall', 'serverStreamAsObservable'];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod('HeroService', method)(constructor.prototype[method], method, descriptor);
     }
-    const grpcStreamMethods: string[] = ['clientStreamExample', 'bidirectionalStreamExample'];
+    const grpcStreamMethods: string[] = ['clientStreamAsObservable', 'bidirectionalStreamAsObservable'];
     for (const method of grpcStreamMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcStreamMethod('HeroService', method)(constructor.prototype[method], method, descriptor);

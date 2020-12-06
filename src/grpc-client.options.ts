@@ -4,7 +4,10 @@ import { join } from 'path';
 export const grpcClientOptions: GrpcOptions = {
   transport: Transport.GRPC,
   options: {
-    package: 'hero', // ['hero', 'hero2']
-    protoPath: join(__dirname, './hero/hero.proto'), // ['./hero/hero.proto', './hero/hero2.proto']
+    package: ['hero', 'villan'],
+    protoPath: [
+      join(__dirname, './hero/hero.proto'),
+      join(__dirname, './villan/villan.proto'),
+    ],
   },
 };
