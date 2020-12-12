@@ -52,7 +52,7 @@ export class VillanController {
 
     stream.on('end', () => {
       console.log('VillanService.ClientStreamAsStream completed');
-      callback(null, null);
+      callback(null, this.items[this.items.length - 1]);
     });
   };
 
