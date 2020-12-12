@@ -15,7 +15,7 @@ export class VillanController {
   unaryCall(data: VillanById): Villan {
     console.log('VillanService.UnaryCall received %o', data);
     const item = this.items.find(({ id }) => id === data.id);
-    console.log('VillanService.UnaryCall responsess %o', item);
+    console.log('VillanService.UnaryCall responses %o', item);
     return item;
   }
 
@@ -62,7 +62,7 @@ export class VillanController {
     console.log('VillanService.ServerStreamAsObservable received %o', data);
 
     const onNext = (item: Villan): void => {
-      console.log('VillanService.ServerStreamAsObservable responsess %o', item);
+      console.log('VillanService.ServerStreamAsObservable responses %o', item);
     };
     const onComplete = (): void => {
       console.log('VillanService.ServerStreamAsObservable completed');
@@ -95,7 +95,7 @@ export class VillanController {
     const onNext = (villanById: VillanById) => {
       console.log('VillanService.BidirectionalStreamAsObservable received %o', villanById);
       const item = this.items.find(({ id }) => id === villanById.id);
-      console.log('VillanService.BidirectionalStreamAsObservable responsess %o', item);
+      console.log('VillanService.BidirectionalStreamAsObservable responses %o', item);
       villan$.next(item);
     };
     const onComplete = (): void => {
@@ -117,7 +117,7 @@ export class VillanController {
     stream.on('data', (villanById: VillanById) => {
       console.log('VillanService.BidirectionalStreamAsStream received %o', villanById);
       const item = this.items.find(({ id }) => id === villanById.id);
-      console.log('VillanService.BidirectionalStreamAsStream responsess %o', item);
+      console.log('VillanService.BidirectionalStreamAsStream responses %o', item);
       stream.write(item);
     });
 

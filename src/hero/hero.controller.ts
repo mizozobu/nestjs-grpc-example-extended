@@ -13,7 +13,7 @@ export class HeroController implements HeroServiceController {
   unaryCall(data: HeroById): Hero {
     console.log('HeroService.UnaryCall received %o', data);
     const item = this.items.find(({ id }) => id === data.id);
-    console.log('HeroService.UnaryCall responsess %o', item);
+    console.log('HeroService.UnaryCall responses %o', item);
     return item;
   }
 
