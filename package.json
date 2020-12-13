@@ -1,5 +1,5 @@
 {
-  "name": "nestjs-grpc-extended",
+  "name": "nestjs-grpc-example-extended",
   "version": "1.0.0",
   "description": "NestJS extended gRPC example",
   "license": "MIT",
