@@ -3,8 +3,8 @@
 ## Getting Started
 
 ```sh
-git clone https://github.com/mizozobu/nestjs-grpc-extended.git
-cd nestjs-grpc-extended
+git clone https://github.com/mizozobu/nestjs-grpc-example-extended.git
+cd nestjs-grpc-example-extended
 yarn
 ```
 
